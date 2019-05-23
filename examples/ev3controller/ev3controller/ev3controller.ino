@@ -8,7 +8,7 @@
 #include <Ethernet.h>
 #include <SPI.h>
 
-#include <IOTClient.h>
+#include "IOTClient.h"
 
 #define POT_PIN A1
 
@@ -22,8 +22,8 @@ byte n_pins = 3;
 const char codes[] = { 'R','U','L'};
 
 #define CODE 789
-#define TO 1234
-#define TOKEN "token here"
+#define TO 555
+#define TOKEN "1db93bcd-15a9-48be-8a35-f7f805cee03b"
 
 byte mac[] = {
 	0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED
@@ -36,8 +36,11 @@ void onReceive(const String&);
 
 void setup() {
 	Serial.begin(9600);
-	while(Ethernet.begin(mac) == 0);
-
+	while (Ethernet.begin(mac) == 0) {
+		Serial.println("No Ethernet Connection");
+		delay(1000);
+	};
+	Serial.println("Ethernet Connected");
 	pinMode(POT_PIN, INPUT);
 	for (byte i = 0; i < n_pins; i++) {
 		pinMode(pins[i], INPUT);
@@ -75,7 +78,7 @@ void loop() {
 			read_previous_value[i] = read_values[i];
 		}
 	}
-	/*
+	
 	byte pot_value = (byte)map(analogRead(POT_PIN),0,1024,0,100);
 	if (pot_value != previous_pot_value) {
 		Serial.print("POT VALUE Changed: ");
@@ -84,10 +87,10 @@ void loop() {
 		SyncData *temp = new SyncData();
 		temp->key = "S";
 		temp->value = String(pot_value);
-		list->add(temp);wwwwwwdsaww
+		list->add(temp);
 		flag = 1;
 	}
-	*/
+	
 	if (flag != 0) {
 		sc.sendMessage("CONTROL", list);
 		flag = 0;

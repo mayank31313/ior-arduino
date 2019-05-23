@@ -21,12 +21,12 @@
     <ClInclude Include="__vm\.ev3controller.vsarduino.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="IOTClient.h">
+    <ClInclude Include="..\..\..\IOTClient\IOTClient.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="IOTClient.cpp">
+    <ClCompile Include="..\..\..\IOTClient\IOTClient.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
