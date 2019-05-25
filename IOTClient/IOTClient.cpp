@@ -54,7 +54,7 @@ boolean IOTClient::connect() {
 			client->println(s);
 			client->flush();
 			time_delay = millis();
-
+			sendMessage("<HEARTBEAT>", NULL);
 			return true;
 		}
 		else {
@@ -82,7 +82,6 @@ bool IOTClient::sendMessage(const char* message,LinkedList<SyncData*>* metadata)
 			Serial.println("Metadata NULL");
 		client->println();
 		client->flush();
-		time_delay = millis();
 		return true;
 	}
 	else
@@ -121,9 +120,10 @@ void IOTClient::wait4Data() {
 		return;
 	}
 	
-	if (millis() - time_delay > 60 * 1000) {
+	if (millis() - time_delay > 60000) {
 		Serial.println("Sending Heartbeat");
 		sendMessage("<HEARTBEAT>",NULL);
+		time_delay = millis();
 	}
 	
 	String receivedData = readData();

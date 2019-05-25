@@ -26,11 +26,12 @@ class IOTClient
 private:
 	Client* client;
 	//WiFiClient* client;
-	const char* server = "www.iorresearch.ml";
-	//const char* server = "192.168.1.10";
+	//const char* server = "www.iorresearch.ml";
+	const char* server = "192.168.1.10";
 	const char *token;
 	int code,to;
 	unsigned long time_delay;
+
 	String readData();
 	void (*onReceive)(const String&);
 public:

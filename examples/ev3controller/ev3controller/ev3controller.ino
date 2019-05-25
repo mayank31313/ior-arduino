@@ -23,7 +23,7 @@ const char codes[] = { 'R','U','L'};
 
 #define CODE 789
 #define TO 555
-#define TOKEN "1db93bcd-15a9-48be-8a35-f7f805cee03b"
+#define TOKEN "826f7556-6442-4c09-9e1e-76dbb462542c"
 
 byte mac[] = {
 	0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED
@@ -36,10 +36,11 @@ void onReceive(const String&);
 
 void setup() {
 	Serial.begin(9600);
-	while (Ethernet.begin(mac) == 0) {
-		Serial.println("No Ethernet Connection");
-		delay(1000);
-	};
+	int status;
+	do{
+		Serial.println("Beginning the Ethernet");
+		status = Ethernet.begin(mac);		
+	} while (status == 0);
 	Serial.println("Ethernet Connected");
 	pinMode(POT_PIN, INPUT);
 	for (byte i = 0; i < n_pins; i++) {
@@ -58,6 +59,7 @@ LinkedList<SyncData*>* list = new LinkedList<SyncData*>();
 
 void loop() {
 	sc.wait4Data();	
+	/*
 	for (byte i = 0; i < n_pins; i++) {
 		read_values[i] = digitalRead(pins[i]);	
 		if (read_previous_value[i] != read_values[i]) {
@@ -96,6 +98,7 @@ void loop() {
 		flag = 0;
 	}
 	list->clear();
+	*/
 }
 
 void onReceive(const String& message) {
