@@ -1,2 +1,2 @@
-examples/ev3controller/*
-IOTClient/*
+examples/ev3controller/**
+IOTClient/**
